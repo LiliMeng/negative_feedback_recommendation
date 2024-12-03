@@ -1,5 +1,6 @@
 # negative_feedback_recommendation
 
+Paper: Learning from Negative User Feedback and Measuring Responsiveness for Sequential Recommenders https://arxiv.org/pdf/2308.12256
 ### Cross-Entropy Loss and Negative-Valued Label Weights
 
 The **cross-entropy loss** for a single instance can be expressed as:
