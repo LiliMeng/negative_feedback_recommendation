@@ -8,7 +8,7 @@ The **cross-entropy loss** for a single instance can be expressed as:
 $L_i = -\log(p(y_i | s_i))$
 
 Where:
-- $p(y_i | s_i)$ is the predicted probability of the correct label $y_i $ given the input $s_i $.
+- $p(y_i | s_i)$ is the predicted probability of the correct label $y_i$ given the input $s_i$.
 - $L_i$ measures the dissimilarity between the predicted probability distribution and the true distribution.
 
 ### Incorporating Negative-Valued Label Weights
