@@ -5,7 +5,7 @@ Paper: Learning from Negative User Feedback and Measuring Responsiveness for Seq
 <img width="711" alt="Screenshot 2024-12-04 at 3 47 42 PM" src="https://github.com/user-attachments/assets/238ae1d6-2d50-43ca-8969-3a53a98fd170">
 
 ### Result:
-The experiment model using dislikes as both input feature and training labels reduces dislike rate by 2.44% compared to a baseline of not using dislike signals. This effect is much larger than only using dislike as input feature but not training labels (-0.34%, not significant), or a heuristic solu- tion that excludes disliked items from the model’s input sequence (-0.84%). Repeated dislike rate on the same creator decreases by 9.60%, suggesting that the model reduces similar recommendations after negative feedback
+The experiment model using dislikes as both input feature and training labels reduces dislike rate by 2.44% compared to a baseline of not using dislike signals. This effect is much larger than only using dislike as input feature but not training labels (-0.34%, not significant), or a heuristic solution that excludes disliked items from the model’s input sequence (-0.84%). Repeated dislike rate on the same creator decreases by 9.60%, suggesting that the model reduces similar recommendations after negative feedback
 
 
 
