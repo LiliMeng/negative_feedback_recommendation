@@ -19,7 +19,7 @@ $L_i = w_i \cdot (-\log(p(y_i | s_i)))$
 
 Where:
 - $w_i$ is the label weight, which could be **negative** for unwanted items.
-- A negative $w_i$ inverts the penalty: instead of minimizing $L_i$, the system tries to **maximize** $ p(y_i | s_i) $, reducing the likelihood of these items being recommended.
+- A negative $w_i$ inverts the penalty: instead of minimizing $L_i$, the system tries to **maximize** $p(y_i | s_i)$, reducing the likelihood of these items being recommended.
 
 ---
 
