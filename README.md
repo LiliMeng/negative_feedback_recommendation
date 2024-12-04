@@ -1,6 +1,7 @@
 # negative_feedback_recommendation
 
 Paper: Learning from Negative User Feedback and Measuring Responsiveness for Sequential Recommenders https://arxiv.org/pdf/2308.12256
+
 <img width="711" alt="Screenshot 2024-12-04 at 3 47 42 PM" src="https://github.com/user-attachments/assets/238ae1d6-2d50-43ca-8969-3a53a98fd170">
 
 
