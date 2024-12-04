@@ -70,8 +70,4 @@ To avoid gradient blow-up while discouraging unwanted items, consider these alte
      $L_i = -w_i \cdot (1 - p(y_i | s_i))^\gamma \cdot \log(p(y_i | s_i))$
      This focuses learning on more confident predictions.
 
----
 
-### Conclusion
-
-Using negative-valued weights in cross-entropy loss can effectively penalize unwanted items, but the gradient blow-up issue arises when probabilities approach zero. This can be mitigated by smoothing the loss, clipping gradients, or adopting alternative loss functions. Careful tuning is required to balance penalization while maintaining stable training.
