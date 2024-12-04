@@ -70,4 +70,78 @@ To avoid gradient blow-up while discouraging unwanted items, consider these alte
      $L_i = -w_i \cdot (1 - p(y_i | s_i))^\gamma \cdot \log(p(y_i | s_i))$
      This focuses learning on more confident predictions.
 
+## Evaluation metrics for Negative Feedback 
+
+Evaluating the effectiveness of negative feedback in recommender systems requires metrics that consider both the avoidance of disliked items and the overall user satisfaction. Here are the key evaluation metrics:
+
+---
+
+### 1. **Precision/Recall with Negative Feedback**
+- **Modified Precision**: Measures the proportion of recommended items that are relevant (positively preferred) and do not belong to the negatively preferred set.
+  
+  $\text{Precision} = \frac{\text{True Positives (Relevant and Not Disliked)}}{\text{Total Recommended Items}}$
+- **Modified Recall**: Measures how many positively preferred items were correctly recommended while avoiding negatively preferred items.
+- 
+  $\text{Recall} = \frac{\text{True Positives (Relevant and Not Disliked)}}{\text{Total Relevant Items}}$
+
+---
+
+### 2. **Discounted Cumulative Gain (DCG)**
+- Incorporate a penalty for recommending disliked items by assigning them negative or zero relevance scores in the ranking.
+- The formula:
+  $DCG = \sum_{i=1}^{N} \frac{\text{Relevance}(i)}{\log_2(i+1)}$
+  If an item is disliked, set its relevance to a negative or low value.
+
+---
+
+### 3. **Normalized Discounted Cumulative Gain (NDCG)**
+- Normalize DCG to account for the ideal ranking, ensuring recommendations respect both positive and negative preferences:
+  $NDCG = \frac{DCG}{IDCG}$
+  Here, negatively preferred items contribute less or negatively to the numerator.
+
+---
+
+### 4. **Coverage of Negative Feedback**
+- Measures how well the system avoids recommending items explicitly marked as disliked:
+  $\text{Coverage of Negative Feedback} = 1 - \frac{\text{Number of Disliked Items Recommended}}{\text{Total Number of Disliked Items}}$
+- Higher coverage indicates the system successfully avoids negatively marked items.
+
+---
+
+### 5. **Hit Rate (Avoidance Version)**
+- Focuses on whether the system successfully avoids items in the negative set:
+  $\text{Avoidance Rate} = 1 - \frac{\text{Hits on Negative Items}}{\text{Total Negative Items}}$
+
+---
+
+### 6. **Negative Feedback Precision**
+- Measures how well the system correctly identifies items that should not be recommended:
+  $\text{Negative Precision} = \frac{\text{Correctly Avoided Negative Items}}{\text{Total Negative Predictions}}$
+
+---
+
+### 7. **User Satisfaction/Engagement Metrics**
+- Evaluate the broader impact of negative feedback on user experience:
+  - **Click-Through Rate (CTR)**: Higher CTR on positively preferred items indicates effective use of negative feedback.
+  - **Session Length**: Longer sessions may indicate improved recommendations after integrating negative feedback.
+  - **Dwell Time**: Reflects user engagement with positively recommended items.
+
+---
+
+### 8. **F1-Score for Negative Feedback**
+- Combines precision and recall for negative preferences to provide a balanced evaluation:
+  $F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$
+
+---
+
+### 9. **Custom Weighted Metrics**
+- Assign different weights to penalize recommendations of disliked items more heavily:
+  $\text{Weighted Loss} = \sum_{i=1}^{N} w_i \cdot \text{Loss}(i)$
+  Where $w_i$ is higher for negatively preferred items.
+
+---
+
+### 10. **Overall Utility**
+- Evaluate the combined effect of including negative feedback on system utility:
+  $\text{Utility} = \sum_{i=1}^{N} (\text{Positive Relevance} - \text{Negative Relevance})$
 
