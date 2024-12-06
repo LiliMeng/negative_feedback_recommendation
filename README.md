@@ -80,76 +80,177 @@ To avoid gradient blow-up while discouraging unwanted items, consider these alte
 
 ## Evaluation metrics for Negative Feedback 
 
-Evaluating the effectiveness of negative feedback in recommender systems requires metrics that consider both the avoidance of disliked items and the overall user satisfaction. Here are the key evaluation metrics:
+Evaluating negative user feedback in recommendation systems involves identifying, measuring, and analyzing signals that indicate dissatisfaction. Here are common quantitative metrics to evaluate and address negative feedback:
 
 ---
 
-### 1. **Precision/Recall with Negative Feedback**
-- **Modified Precision**: Measures the proportion of recommended items that are relevant (positively preferred) and do not belong to the negatively preferred set.
+### **1. Direct Negative Feedback Metrics**
+These metrics measure explicit user actions indicating dissatisfaction.
+
+- **Dislike Rate:**  
+  Percentage of items explicitly disliked by users (e.g., thumbs down or "not interested" actions).  
+  **Formula:**  
+  $\text{Dislike Rate} = \frac{\text{Number of Dislikes}}{\text{Total Recommendations}} \times 100$
+
+- **Negative Feedback Rate:**  
+  Includes other explicit feedback like “report” or “block” actions.  
+  **Formula:**  
+  $\text{Negative Feedback Rate} = \frac{\text{Number of Negative Feedback Actions}}{\text{Total Recommendations}} \times 100$
+
+---
+
+### **2. Indirect Negative Feedback Metrics**
+These metrics use implicit signals to infer dissatisfaction.
+
+- **Skip Rate:**  
+  Frequency of users skipping recommended content (e.g., skipping videos shortly after they start).  
   
-  $\text{Precision} = \frac{\text{True Positives (Relevant and Not Disliked)}}{\text{Total Recommended Items}}$
-- **Modified Recall**: Measures how many positively preferred items were correctly recommended while avoiding negatively preferred items.
-- 
-  $\text{Recall} = \frac{\text{True Positives (Relevant and Not Disliked)}}{\text{Total Relevant Items}}$
+  $\text{Skip Rate} = \frac{\text{Number of Skips}}{\text{Number of Recommendations Viewed}} \times 100$
+
+- **Short Engagement Duration:**  
+  Average time spent on content that is abandoned quickly, compared to the expected duration.  
+  **Metric:**  
+  - Ratio of **actual watch time** to **video length**.
+  - Use thresholds to flag dissatisfaction (e.g., <10% of video watched).
+
+- **Bounce Rate:**  
+  Fraction of users leaving the platform immediately after interacting with a recommendation.  
+  $\text{Bounce Rate} = \frac{\text{Sessions Ending Shortly After Content Click}}{\text{Total Sessions}} \times 100$
 
 ---
 
-### 2. **Discounted Cumulative Gain (DCG)**
-- Incorporate a penalty for recommending disliked items by assigning them negative or zero relevance scores in the ranking.
-- The formula:
-  $DCG = \sum_{i=1}^{N} \frac{\text{Relevance}(i)}{\log_2(i+1)}$
-  If an item is disliked, set its relevance to a negative or low value.
+### **3. Comparative Metrics**
+Evaluate how negative feedback correlates with system-generated metrics.
+
+- **CTR-to-Engagement Mismatch:**  
+  If click-through rates (CTR) are high but engagement rates (e.g., watch time) are low, it might indicate clickbait recommendations.  
+  **Formula:**  
+  \[
+  \text{CTR-to-Engagement Mismatch} = \text{CTR} - \text{Average Engagement Rate}
+  \]
+
+- **Content Quality Drop-Off:**  
+  Identify categories, creators, or content types that disproportionately trigger negative feedback.
 
 ---
 
-### 3. **Normalized Discounted Cumulative Gain (NDCG)**
-- Normalize DCG to account for the ideal ranking, ensuring recommendations respect both positive and negative preferences:
-  $NDCG = \frac{DCG}{IDCG}$
-  Here, negatively preferred items contribute less or negatively to the numerator.
+### **4. User Retention and Satisfaction Metrics**
+Measure the long-term effects of negative feedback.
+
+- **Churn Rate:**  
+  Fraction of users reducing their engagement or leaving the platform after receiving recommendations they didn’t like.  
+  $\text{Churn Rate} = \frac{\text{Users Leaving After Negative Feedback}}{\text{Total Users}}$
 
 ---
 
-### 4. **Coverage of Negative Feedback**
-- Measures how well the system avoids recommending items explicitly marked as disliked:
-  $\text{Coverage of Negative Feedback} = 1 - \frac{\text{Number of Disliked Items Recommended}}{\text{Total Number of Disliked Items}}$
-- Higher coverage indicates the system successfully avoids negatively marked items.
+### **5. Context-Aware Analysis**
+Include contextual metrics to understand dissatisfaction.
+
+- **Recommendation Diversity Impact:**  
+  Negative feedback often results from repetitive or irrelevant recommendations. Measure diversity changes in recommendations over time.  
+  **Metric:**  
+ $\text{Diversity Score} = \text{Entropy or Coverage of Categories in Recommended Items}$
+
+- **Relevance Score Changes:**  
+  Compare personalized relevance scores for negatively received recommendations with those receiving positive feedback.
 
 ---
 
-### 5. **Hit Rate (Avoidance Version)**
-- Focuses on whether the system successfully avoids items in the negative set:
-  $\text{Avoidance Rate} = 1 - \frac{\text{Hits on Negative Items}}{\text{Total Negative Items}}$
+### **6. Root Cause Analysis**
+Segment negative feedback by:
+- **Demographics:** Age, location, or other attributes.
+- **Context:** Time of day, platform (mobile vs. desktop), or session type.
+- **Algorithm Variant:** Compare performance across different recommendation algorithms.
+
+---
+## Relate Business metrics with negative feedback metrics
+### **1. Map Negative Feedback to Business Metrics**
+Identify how each negative feedback metric influences business outcomes:
+
+#### **Revenue Impact**
+- **Dislike Rate / Negative Feedback Rate → Ad Revenue or Subscription Loss**  
+  Negative feedback can reduce user engagement, leading to fewer impressions for advertisements or reduced subscription renewals.  
+  **Action:** Quantify the decrease in ad revenue per percentage point increase in dislike rate.
+
+- **Skip Rate → Ad Completion Rate**  
+  High skip rates for videos or content also reduce the likelihood of users watching in-stream ads, directly impacting ad completion metrics and advertiser satisfaction.
 
 ---
 
-### 6. **Negative Feedback Precision**
-- Measures how well the system correctly identifies items that should not be recommended:
-  $\text{Negative Precision} = \frac{\text{Correctly Avoided Negative Items}}{\text{Total Negative Predictions}}$
+#### **User Retention**
+- **Bounce Rate → User Churn Rate**  
+  A high bounce rate often correlates with users abandoning the platform, leading to increased churn.  
+  **Action:** Measure the relationship between bounce rate increases and the likelihood of users not returning within a defined period (e.g., 7-day or 30-day churn).
+
+- **Short Engagement Duration → Lifetime Value (LTV)**  
+  Reduced engagement may signal declining user interest, impacting long-term customer lifetime value.  
+  **Action:** Use cohort analysis to track LTV differences for users with high vs. low engagement durations.
 
 ---
 
-### 7. **User Satisfaction/Engagement Metrics**
-- Evaluate the broader impact of negative feedback on user experience:
-  - **Click-Through Rate (CTR)**: Higher CTR on positively preferred items indicates effective use of negative feedback.
-  - **Session Length**: Longer sessions may indicate improved recommendations after integrating negative feedback.
-  - **Dwell Time**: Reflects user engagement with positively recommended items.
+#### **User Satisfaction**
+- **Net Promoter Score (NPS) Impact → Brand Loyalty**  
+  Dissatisfied users reflected in NPS surveys are less likely to recommend the platform, affecting user acquisition and overall market share.
+
+- **CTR-to-Engagement Mismatch → Trust in Recommendations**  
+  If recommendations appear clickbaity (high CTR but low engagement), it can erode user trust and satisfaction. This undermines user confidence in the platform and reduces long-term engagement.
 
 ---
 
-### 8. **F1-Score for Negative Feedback**
-- Combines precision and recall for negative preferences to provide a balanced evaluation:
-  $F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$
+### **2. Quantify the Impact**
+Establish quantitative relationships between negative feedback and business metrics using historical data:
+
+#### **Correlation Analysis**
+- Identify correlations between negative feedback metrics (e.g., dislike rate, bounce rate) and key business metrics (e.g., revenue, retention).
+- Example: Analyze how a 1% increase in the dislike rate correlates with decreases in user retention or ad revenue.
+
+#### **Attribution Modeling**
+- Use multi-touch attribution models to measure how negative feedback events contribute to user churn, reduced engagement, or lower ad revenue.
+
+#### **A/B Testing**
+- Test interventions that address negative feedback (e.g., improving recommendation diversity) and measure the direct impact on business metrics like user retention or LTV.
 
 ---
 
-### 9. **Custom Weighted Metrics**
-- Assign different weights to penalize recommendations of disliked items more heavily:
-  $\text{Weighted Loss} = \sum_{i=1}^{N} w_i \cdot \text{Loss}(i)$
-  Where $w_i$ is higher for negatively preferred items.
+### **3. Align Metrics with Specific Business KPIs**
+Translate negative feedback into actionable insights for specific business goals:
+
+#### **Engagement KPIs**
+- **Metric Connection:**  
+  Skip Rate → Average Session Duration, Number of Content Pieces Viewed
+- **Goal:**  
+  Increase session duration by reducing content skips, leading to higher engagement metrics.
+
+#### **Revenue KPIs**
+- **Metric Connection:**  
+  Ad Completion Rate → Ad Revenue
+- **Goal:**  
+  Reduce negative feedback to ensure users stay on the platform longer and see more ads.
+
+#### **Retention KPIs**
+- **Metric Connection:**  
+  Bounce Rate → Daily Active Users (DAU), Monthly Active Users (MAU)
+- **Goal:**  
+  Improve retention by reducing bounce rates, stabilizing DAU/MAU metrics.
 
 ---
 
-### 10. **Overall Utility**
-- Evaluate the combined effect of including negative feedback on system utility:
-  $\text{Utility} = \sum_{i=1}^{N} (\text{Positive Relevance} - \text{Negative Relevance})$
+### **4. Integrate Metrics into a Business Dashboard**
+Use a combined dashboard to monitor both user-centric and business-centric metrics side by side. Key metrics to track:
+- **Negative Feedback Metrics:** Dislike Rate, Skip Rate, Bounce Rate.
+- **Business Metrics:** Revenue (ad or subscription), User Retention, LTV, NPS.
+
+---
+
+### **5. Prioritize Based on Business Impact**
+Not all negative feedback has equal business implications. Prioritize addressing feedback metrics with the most significant impact:
+- Conduct sensitivity analysis to identify which feedback metrics (e.g., skip rate vs. dislike rate) have the highest influence on business goals.
+- Focus resources on improving those metrics with measurable ROI.
+
+---
+
+### **6. Present Findings to Stakeholders**
+Clearly communicate how reducing negative feedback aligns with business goals:
+- Use case studies or experiments to show concrete improvements (e.g., "Reducing skip rate by 5% increased ad revenue by 10%").
+- Quantify the potential upside of addressing negative feedback.
 
