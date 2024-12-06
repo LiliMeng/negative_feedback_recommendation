@@ -125,9 +125,7 @@ Evaluate how negative feedback correlates with system-generated metrics.
 - **CTR-to-Engagement Mismatch:**  
   If click-through rates (CTR) are high but engagement rates (e.g., watch time) are low, it might indicate clickbait recommendations.  
   **Formula:**  
-  \[
-  \text{CTR-to-Engagement Mismatch} = \text{CTR} - \text{Average Engagement Rate}
-  \]
+  $\text{CTR-to-Engagement Mismatch} = \text{CTR} - \text{Average Engagement Rate}$
 
 - **Content Quality Drop-Off:**  
   Identify categories, creators, or content types that disproportionately trigger negative feedback.
